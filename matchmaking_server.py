@@ -39,7 +39,7 @@ while True:
     # Wait for a connection
     print >>sys.stderr, 'waiting for a connection'
     connection, client_address = sock.accept()
-    clients.append[client_address]
+    clients.append[client_address[0]]
     #client_handler(connection, client_address)
     thread.start_new_thread(client_handler, (connection, client_address))
 
