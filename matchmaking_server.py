@@ -18,10 +18,10 @@ def client_handler(clientsocker, addr):
             #print >>sys.stderr, 'received "$s"' % data
             if(len(clients) > 1):
                 clientsocker.sendall(b(clients[0]), " ", b(clients[1]), "                    ")
-                print(clients)
+                print("test", clients)
                 clients.pop()
                 clients.pop()
-            
+            print(clients)
             if data:
                 print >>sys.stderr, 'sending back to ', addr
                 clientsocker.sendall(b'Searching for Other Players...')
