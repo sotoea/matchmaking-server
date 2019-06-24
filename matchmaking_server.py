@@ -17,7 +17,8 @@ def client_handler(clientsocker, addr):
             data = clientsocker.recv(1024)
             #print >>sys.stderr, 'received "$s"' % data
             if(len(clients) > 1){
-                clientsocker.sendall(b(clients[0]), " ", b(clients[1]), "                  ")
+                clientsocker.sendall(b(clients[0]), " ", b(clients[1]), "                    ")
+                print(clients)
                 clients.pop()
                 clients.pop()
             }
