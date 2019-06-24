@@ -4,6 +4,8 @@ import sys
 import thread
 import signal
 
+clients = []
+
 def handle_exit(killsocket):
     killsocket.close()
 
@@ -14,6 +16,11 @@ def client_handler(clientsocker, addr):
         while True:
             data = clientsocker.recv(1024)
             #print >>sys.stderr, 'received "$s"' % data
+            if(len(clients) > 1){
+                clientsocker.sendall(b(clients[0]), " ", b(clients[1]), "                  ")
+                clients.pop()
+                clients.pop()
+            }
             if data:
                 print >>sys.stderr, 'sending back to ', addr
                 clientsocker.sendall(b'Searching for Other Players...')
@@ -31,6 +38,7 @@ while True:
     # Wait for a connection
     print >>sys.stderr, 'waiting for a connection'
     connection, client_address = sock.accept()
+    clients.append[client_address]
     #client_handler(connection, client_address)
     thread.start_new_thread(client_handler, (connection, client_address))
 
