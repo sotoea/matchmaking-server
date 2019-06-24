@@ -2,6 +2,12 @@
 import socket
 import sys
 import thread
+import signal
+
+def handle_exit(killsocket):
+    killsocket.close()
+
+
 def client_handler(clientsocker, addr):
     try:
         print >>sys.stderr, 'connection from ', addr
@@ -27,4 +33,8 @@ while True:
     connection, client_address = sock.accept()
     #client_handler(connection, client_address)
     thread.start_new_thread(client_handler, (connection, client_address))
+
+atexit.register(handle_exit,sock)
+signal.signal(signal.SIGTERM, handle_exit,sock)
+signal.signal(signal.SIGINT, handle_exit,sock)
 sock.close()
